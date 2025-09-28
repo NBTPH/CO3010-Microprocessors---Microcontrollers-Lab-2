@@ -6,6 +6,6 @@
 ../Core/Src/main.c:266:6:display7SEG	11
 ../Core/Src/main.c:316:6:update7SEG	5
 ../Core/Src/main.c:344:6:HAL_TIM_PeriodElapsedCallback	3
-../Core/Src/main.c:356:6:setTimer0	1
-../Core/Src/main.c:361:6:timer_run	3
-../Core/Src/main.c:373:6:Error_Handler	1
+../Core/Src/main.c:357:6:setTimer0	1
+../Core/Src/main.c:362:6:timer_run	3
+../Core/Src/main.c:374:6:Error_Handler	1

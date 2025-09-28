@@ -140,6 +140,7 @@ int main(void)
 				index_led = 0;
 		}
 		update7SEG(index_led++);
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 		setTimer1(250);
 	}
 

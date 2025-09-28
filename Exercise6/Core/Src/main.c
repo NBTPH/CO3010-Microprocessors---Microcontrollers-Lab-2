@@ -348,6 +348,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 			index_led = 0;
 		}
 		update7SEG(index_led++);
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 		display_counter = 25;
 	}
 	display_counter--;
