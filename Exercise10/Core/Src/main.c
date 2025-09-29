@@ -62,13 +62,13 @@ void timer_run();
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int led_buffer[4] = {1, 2, 3, 0};
+int led_buffer[4] = {0, 0, 0, 0};
 int hour = 15, minute = 8, second = 50;
 int timer0_counter = 0;
 int timer0_flag = 0;
 int timer1_counter = 0;
 int timer1_flag = 0;
-int collum_counter = 0;
+int column_counter = 0;
 int shift_counter = 0;
 int TIMER_CYCLE = 10;
 const int MAX_LED_MATRIX = 8;
@@ -110,6 +110,7 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
   int index_led = 0;
+  updateClockBuffer();
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer0(1000);
@@ -144,7 +145,7 @@ int main(void)
 		setTimer1(250);
 	}
 
-	if(collum_counter >= 1000){
+	if(column_counter >= 1000){
 		if(index_led_matrix > 7){
 			index_led_matrix = 0;
 		}
@@ -158,9 +159,9 @@ int main(void)
 			maxtrix_buffer[7] = temp;
 			shift_counter = 0;
 		}
-		collum_counter = 0;
+		column_counter = 0;
 	}
-	collum_counter++;
+	column_counter++;
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

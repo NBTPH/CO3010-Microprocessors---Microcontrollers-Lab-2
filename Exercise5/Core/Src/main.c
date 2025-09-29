@@ -57,7 +57,7 @@ void updateClockBuffer(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int led_buffer[4] = {1, 2, 3, 0};
+int led_buffer[4] = {0, 0, 0, 0};
 int hour = 15, minute = 8, second = 50;
 /* USER CODE END 0 */
 
@@ -94,7 +94,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
-
+  updateClockBuffer();
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
