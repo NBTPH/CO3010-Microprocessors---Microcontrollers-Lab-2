@@ -9,5 +9,5 @@
 ../Core/Src/main.c:392:6:setTimer0	1
 ../Core/Src/main.c:397:6:setTimer1	1
 ../Core/Src/main.c:402:6:timer_run	5
-../Core/Src/main.c:413:6:updateLEDMatrix	17
-../Core/Src/main.c:483:6:Error_Handler	1
+../Core/Src/main.c:413:6:updateLEDMatrix	10
+../Core/Src/main.c:455:6:Error_Handler	1

@@ -68,12 +68,12 @@ int timer0_counter = 0;
 int timer0_flag = 0;
 int timer1_counter = 0;
 int timer1_flag = 0;
+int TIMER_CYCLE = 10;
 int column_counter = 0;
 int shift_counter = 0;
-int TIMER_CYCLE = 10;
 const int MAX_LED_MATRIX = 8;
 int index_led_matrix = 0;
-uint8_t maxtrix_buffer[8] = {0x00, 0x00, 0xFC, 0x12, 0x12, 0x12, 0xFC, 0x00};
+uint8_t matrix_buffer[8] = {0x00, 0x00, 0xFC, 0x12, 0x12, 0x12, 0xFC, 0x00};
 /* USER CODE END 0 */
 
 /**
@@ -152,11 +152,11 @@ int main(void)
 		updateLEDMatrix(index_led_matrix++);
 		shift_counter++;
 		if(shift_counter == 30){
-			uint8_t temp = maxtrix_buffer[0];
+			uint8_t temp = matrix_buffer[0];
 			for(uint8_t i = 1; i < 8; i++){
-				maxtrix_buffer[i - 1] = maxtrix_buffer[i];
+				matrix_buffer[i - 1] = matrix_buffer[i];
 			}
-			maxtrix_buffer[7] = temp;
+			matrix_buffer[7] = temp;
 			shift_counter = 0;
 		}
 		column_counter = 0;
@@ -411,61 +411,33 @@ void timer_run(){
 }
 
 void updateLEDMatrix(int index){
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_SET);
+	for(uint8_t i = 0; i < 8; i++){
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8 << i, (matrix_buffer[index] & (1 << i)) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	}
 	switch(index){
 		case 0:
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_SET);
-			for(uint8_t i = 0; i < 8; i++){
-				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8 << i, (maxtrix_buffer[index] & (1 << i)) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-			}
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
 			break;
 		case 1:
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_SET);
-			for(uint8_t i = 0; i < 8; i++){
-				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8 << i, (maxtrix_buffer[index] & (1 << i)) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-			}
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);
 			break;
 		case 2:
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_SET);
-			for(uint8_t i = 0; i < 8; i++){
-				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8 << i, (maxtrix_buffer[index] & (1 << i)) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-			}
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
 			break;
 		case 3:
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_SET);
-			for(uint8_t i = 0; i < 8; i++){
-				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8 << i, (maxtrix_buffer[index] & (1 << i)) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-			}
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
 			break;
 		case 4:
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_SET);
-			for(uint8_t i = 0; i < 8; i++){
-				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8 << i, (maxtrix_buffer[index] & (1 << i)) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-			}
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
 			break;
 		case 5:
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_SET);
-			for(uint8_t i = 0; i < 8; i++){
-				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8 << i, (maxtrix_buffer[index] & (1 << i)) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-			}
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_RESET);
 			break;
 		case 6:
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_SET);
-			for(uint8_t i = 0; i < 8; i++){
-				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8 << i, (maxtrix_buffer[index] & (1 << i)) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-			}
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_RESET);
 			break;
 		case 7:
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_SET);
-			for(uint8_t i = 0; i < 8; i++){
-				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8 << i, (maxtrix_buffer[index] & (1 << i)) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-			}
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_RESET);
 			break;
 		default:
